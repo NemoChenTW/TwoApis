@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.nemochen.twoapis.databinding.MainFragmentBinding
+import com.nemochen.twoapis.model.StatusRepository
 
 class MainFragment : Fragment() {
 
@@ -28,7 +29,7 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel = ViewModelProvider(this, MainViewModelFactory(StatusRepository()))[MainViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
     }
