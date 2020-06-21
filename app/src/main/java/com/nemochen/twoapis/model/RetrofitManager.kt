@@ -4,15 +4,22 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitManager {
-    private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("https://reqbin.com/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    private val statusService = retrofit.create(
-        StatusService::class.java)
+    private val publicStatusService = createService("https://code-test.migoinc-dev.com")
+    private val privateStatusService = createService("https://192.168.2.2")
 
-    fun getAPI(): StatusService {
-        return statusService
+    private fun createService(url: String): StatusService {
+        return Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build().create(StatusService::class.java)
+    }
+
+    fun getPublicAPI(): StatusService {
+        return publicStatusService
+    }
+
+    fun getPrivateAPI(): StatusService {
+        return privateStatusService
     }
 
 
