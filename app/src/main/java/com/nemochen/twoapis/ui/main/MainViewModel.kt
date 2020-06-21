@@ -2,6 +2,7 @@ package com.nemochen.twoapis.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.nemochen.twoapis.model.RetrofitManager
 import com.nemochen.twoapis.model.StatusData
 import retrofit2.Call
 import retrofit2.Callback

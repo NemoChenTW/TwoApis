@@ -1,4 +1,4 @@
-package com.nemochen.twoapis.ui.main
+package com.nemochen.twoapis.model
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -8,7 +8,8 @@ object RetrofitManager {
         .baseUrl("https://reqbin.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    private val statusService = retrofit.create(StatusService::class.java)
+    private val statusService = retrofit.create(
+        StatusService::class.java)
 
     fun getAPI(): StatusService {
         return statusService

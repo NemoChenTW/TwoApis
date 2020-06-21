@@ -1,6 +1,5 @@
-package com.nemochen.twoapis.ui.main
+package com.nemochen.twoapis.model
 
-import com.nemochen.twoapis.model.StatusData
 import retrofit2.Call
 import retrofit2.http.GET
 
