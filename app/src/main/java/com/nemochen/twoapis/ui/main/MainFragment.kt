@@ -6,12 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.nemochen.twoapis.R
-import com.nemochen.twoapis.model.StatusData
-import kotlinx.android.synthetic.main.main_fragment.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.nemochen.twoapis.databinding.MainFragmentBinding
 
 class MainFragment : Fragment() {
 
@@ -19,39 +14,23 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
+    private lateinit var binding: MainFragmentBinding
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
-    }
+        binding = MainFragmentBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        btn_get.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-
-                RetrofitManager.getAPI().getStatus().enqueue(object : Callback<StatusData> {
-                    override fun onFailure(call: Call<StatusData>, t: Throwable) {
-                        TODO("Not yet implemented")
-                    }
-
-                    override fun onResponse(call: Call<StatusData>, response: Response<StatusData>) {
-                        message.text = response.body()!!.status
-                    }
-                })
-            }
-
-        })
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        // TODO: Use the ViewModel
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
     }
 
 }
