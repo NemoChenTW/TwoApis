@@ -1,16 +1,11 @@
 package com.nemochen.twoapis.ui.main
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.nemochen.twoapis.model.RetrofitManager
-import com.nemochen.twoapis.model.StatusData
+import androidx.lifecycle.viewModelScope
 import com.nemochen.twoapis.model.StatusRepository
 import kotlinx.coroutines.Dispatchers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
 
 class MainViewModel(private val statusRepository: StatusRepository) : ViewModel() {
     companion object {
@@ -19,9 +14,15 @@ class MainViewModel(private val statusRepository: StatusRepository) : ViewModel(
         const val STATUS_PREFIX = "Service status: "
     }
 
-    val statusString = liveData(Dispatchers.IO) {
-        emit(LOADING_MESSAGE)
-        var resultString = STATUS_PREFIX + statusRepository.getStatus().status
-        emit(resultString)
+    val statusString = MutableLiveData<String>()
+
+    fun getStatus() {
+        viewModelScope.launch {
+            statusString.value = LOADING_MESSAGE
+            launch(Dispatchers.IO) {
+                statusString.postValue(STATUS_PREFIX + statusRepository.getStatus().status)
+            }
+        }
     }
+
 }
