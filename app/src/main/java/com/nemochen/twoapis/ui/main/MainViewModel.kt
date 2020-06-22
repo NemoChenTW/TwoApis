@@ -1,12 +1,16 @@
 package com.nemochen.twoapis.ui.main
 
-import androidx.lifecycle.*
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.nemochen.twoapis.model.StatusRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.lang.ref.WeakReference
 
-class MainViewModel(private val statusRepository: StatusRepository) : ViewModel() {
+class MainViewModel(application: Application, private val statusRepository: StatusRepository) : AndroidViewModel(application) {
     companion object {
         const val LOADING_MESSAGE = "Loading"
         const val FAIL_MESSAGE = "Get status fail"
@@ -16,6 +20,8 @@ class MainViewModel(private val statusRepository: StatusRepository) : ViewModel(
 
     val publicStatusString = MutableLiveData<String>()
     val privateStatusString = MutableLiveData<String>()
+
+    val weakContext = WeakReference(application.applicationContext)
 
     fun getStatus() {
         viewModelScope.launch {
@@ -32,5 +38,4 @@ class MainViewModel(private val statusRepository: StatusRepository) : ViewModel(
             }
         }
     }
-
 }

@@ -29,7 +29,7 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this, MainViewModelFactory(StatusRepository()))[MainViewModel::class.java]
+        viewModel = ViewModelProvider(this, MainViewModelFactory(activity!!.application, StatusRepository()))[MainViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
     }
