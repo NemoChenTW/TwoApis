@@ -4,6 +4,7 @@ A simple feature that get the response information from the API for both(public/
 There is an API service which is able to access through public network and internal private network(through WIFI).
 
 Please implement a simple feature that get the response information from the API for both network environment.
+
 (Tip: In newer android OS version, the primary network will always be the one which is more stable to access public internet)
 
 Restful API Info:
